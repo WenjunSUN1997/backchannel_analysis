@@ -66,7 +66,10 @@ def create_dataset(main_channel:dict, back_channel:dict):
                                           +main_channel[index_to_find]['speaker'])
                     left_num -= 1
                 index_to_find += 1
-            back_channel[back_channel_index][num] = sentence_block
+            if len(sentence_block) == 2*num:
+                back_channel[back_channel_index][num] = sentence_block
+            else:
+                back_channel[back_channel_index][num] = pd.NA
 
     return back_channel
 

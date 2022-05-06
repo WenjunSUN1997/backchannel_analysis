@@ -23,6 +23,9 @@ class data_loader(Dataset):
     def __getitem__(self, item):
         print(item)
         sentence_list = literal_eval(self.data['sentence'][item])
+        for index in range(len(sentence_list)):
+            if len(sentence_list[index]) >= self.max_len:
+                sentence_list[index] = sentence_list[index][:self.max_len]
         target = self.data['target'][item]
         print(sentence_list)
         output_tokenizer = self.tokenizer(sentence_list, max_length=self.max_len, padding='max_length')

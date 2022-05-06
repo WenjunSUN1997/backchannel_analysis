@@ -32,9 +32,13 @@ def get_data(len_block:int):
         if str(len_block) in col_name:
             data_true= data_true[col_name]
             break
-
+    if len(data_true.dropna())<len(data_fake.dropna()):
+        max_len = len(data_true.dropna())
+    else:
+        max_len = len(data_fake.dropna())
     data_true = pd.DataFrame({'sentence': data_true.dropna(),
-                              'target': [1] * len(data_true)})
+                              'target': [1] * len(data_true.dropna())})[:max_len]
     data_fake = pd.DataFrame({'sentence': data_fake.dropna(),
-                              'target': [0] * len(data_fake)})[:1282]
+                              'target': [0] * len(data_fake.dropna())})[:max_len]
+    print('done')
     return data_true, data_fake
